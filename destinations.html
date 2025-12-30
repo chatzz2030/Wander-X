@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Travel Destinations</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+  --bg-color: #f5f7fb;
+  --card-bg: #ffffff;
+}
+
+body {
+  background-color: var(--bg-color);
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.card:hover { transform: translateY(-6px); }
+
+.image-container {
+  position: relative;
+  height: 240px;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.8));
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+}
+
+.tag {
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.card-title-area h2 {
+  color: #fff;
+  margin: 0;
+  font-size: 2rem;
+}
+
+.card-description {
+  color: rgba(255,255,255,0.9);
+}
+
+.card-footer {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-btn {
+  background: #eef2ff;
+  border: 1px solid #dbe2ff;
+  padding: 10px 22px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.view-btn:hover { background: #dbe4ff; }
+
+/* MODAL */
+#modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#modal.active { display: flex; }
+
+.modal-box {
+  background: #fff;
+  width: 100%;
+  max-width: 520px;
+  padding: 30px;
+  border-radius: 20px;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.modal-box input,
+.modal-box textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.modal-box button {
+  width: 100%;
+  padding: 14px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- 1 Kyoto -->
+<div class="card">
+  <div class="image-container">
+    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e" onclick="openModal('Kyoto')">
+    <div class="overlay">
+      <div class="tags"><span class="tag">Heritage</span><span class="tag">Japan</span></div>
+      <div class="card-title-area"><h2>Kyoto</h2><p class="card-description">Temples & gardens</p></div>
+    </div>
+  </div>
+  <div class="card-footer"><span>★ 4.9</span><button class="view-btn" onclick="openModal('Kyoto')">Book</button></div>
+</div>
+
+<!-- 2 Paris -->
+<div class="card">
+  <div class="image-container">
+    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34" onclick="openModal('Paris')">
+    <div class="overlay">
+      <div class="tags"><span class="tag">City</span><span class="tag">France</span></div>
+      <div class="card-title-area"><h2>Paris</h2><p class="card-description">Art & romance</p></div>
+    </div>
+  </div>
+  <div class="card-footer"><span>★ 4.8</span><button class="view-btn" onclick="openModal('Paris')">Book</button></div>
+</div>
+
+<!-- 3 Bali -->
+<div class="card">
+  <div class="image-container">
+    <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4" onclick="openModal('Bali')">
+    <div class="overlay">
+      <div class="tags"><span class="tag">Beach</span><span class="tag">Indonesia</span></div>
+      <div class="card-title-area"><h2>Bali</h2><p class="card-description">Tropical calm</p></div>
+    </div>
+  </div>
+  <div class="card-footer"><span>★ 4.8</span><button class="view-btn" onclick="openModal('Bali')">Book</button></div>
+</div>
+
+<!-- 4 Rome -->
+<div class="card">
+  <div class="image-container">
+    <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5" onclick="openModal('Rome')">
+    <div class="overlay">
+      <div class="tags"><span class="tag">History</span><span class="tag">Italy</span></div>
+      <div class="card-title-area"><h2>Rome</h2><p class="card-description">Ancient wonders</p></div>
+    </div>
+  </div>
+  <div class="card-footer"><span>★ 4.7</span><button class="view-btn" onclick="openModal('Rome')">Book</button></div>
+</div>
+
+<!-- 5 New York -->
+<div class="card">
+  <div class="image-container">
+    <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9" onclick="openModal('New York')">
+    <div class="overlay">
+      <div class="tags"><span class="tag">City</span><span class="tag">USA</span></div>
+      <div class="card-title-area"><h2>New York</h2><p class="card-description">Never sleeps</p></div>
+    </div>
+  </div>
+  <div class="card-footer"><span>★ 4.6</span><button class="view-btn" onclick="openModal('New York')">Book</button></div>
+</div>
+
+<!-- 6 London -->
+<div class="card">
+  <div class="image-container">
+    <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad" onclick="openModal('London')">
+    <div class="overlay">
+      <div class="tags"><span class="tag">City</span><span class="tag">UK</span></div>
+      <div class="card-title-area"><h2>London</h2><p class="card-description">Royal vibes</p></div>
+    </div>
+  </div>
+  <div class="card-footer"><span>★ 4.7</span><button class="view-btn" onclick="openModal('London')">Book</button></div>
+</div>
+
+<!-- 7 Kerala -->
+<div class="card">
+  <div class="image-container">
+    <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944" onclick="openModal('Kerala')">
+    <div class="overlay">
+      <div class="tags"><span class="tag">Nature</span><span class="tag">India</span></div>
+      <div class="card-title-area"><h2>Kerala</h2><p class="card-description">Backwaters</p></div>
+    </div>
+  </div>
+  <div class="card-footer"><span>★ 4.8</span><button class="view-btn" onclick="openModal('Kerala')">Book</button></div>
+</div>
+
+<!-- 8 Goa -->
+<div class="card">
+  <div class="image-container">
+    <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2" onclick="openModal('Goa')">
+    <div class="overlay">
+      <div class="tags"><span class="tag">Beach</span><span class="tag">India</span></div>
+      <div class="card-title-area"><h2>Goa</h2><p class="card-description">Fun & sun</p></div>
+    </div>
+  </div>
+  <div class="card-footer"><span>★ 4.6</span><button class="view-btn" onclick="openModal('Goa')">Book</button></div>
+</div>
+
+<!-- 9 Santorini -->
+<div class="card">
+  <div class="image-container">
+    <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff" onclick="openModal('Santorini')">
+    <div class="overlay">
+      <div class="tags"><span class="tag">Island</span><span class="tag">Greece</span></div>
+      <div class="card-title-area"><h2>Santorini</h2><p class="card-description">Blue & white</p></div>
+    </div>
+  </div>
+  <div class="card-footer"><span>★ 4.9</span><button class="view-btn" onclick="openModal('Santorini')">Book</button></div>
+</div>
+
+<!-- 10 Switzerland -->
+<div class="card">
+  <div class="image-container">
+    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470" onclick="openModal('Switzerland')">
+    <div class="overlay">
+      <div class="tags"><span class="tag">Mountains</span><span class="tag">Europe</span></div>
+      <div class="card-title-area"><h2>Switzerland</h2><p class="card-description">Alpine beauty</p></div>
+    </div>
+  </div>
+  <div class="card-footer"><span>★ 4.8</span><button class="view-btn" onclick="openModal('Switzerland')">Book</button></div>
+</div>
+
+<!-- 11 Dubai -->
+<div class="card">
+  <div class="image-container">
+    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c" onclick="openModal('Dubai')">
+    <div class="overlay">
+      <div class="tags"><span class="tag">Luxury</span><span class="tag">UAE</span></div>
+      <div class="card-title-area"><h2>Dubai</h2><p class="card-description">Luxury city</p></div>
+    </div>
+  </div>
+  <div class="card-footer"><span>★ 4.7</span><button class="view-btn" onclick="openModal('Dubai')">Book</button></div>
+</div>
+
+<!-- 12 Maldives -->
+<div class="card">
+  <div class="image-container">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" onclick="openModal('Maldives')">
+    <div class="overlay">
+      <div class="tags"><span class="tag">Island</span><span class="tag">Luxury</span></div>
+      <div class="card-title-area"><h2>Maldives</h2><p class="card-description">Overwater villas</p></div>
+    </div>
+  </div>
+  <div class="card-footer"><span>★ 4.9</span><button class="view-btn" onclick="openModal('Maldives')">Book</button></div>
+</div>
+
+</div>
+
+<!-- MODAL -->
+<div id="modal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal()">×</span>
+    <h2 style="text-align:center;">Plan Your Journey ✈️</h2>
+
+   <form onsubmit="submitBooking(event)">
+  <input id="bname" type="text" placeholder="Your Name" required>
+  <input id="bemail" type="email" placeholder="Email" required>
+  <input id="bdestination" type="text" placeholder="Destination" required>
+  <input id="bpeople" type="number" placeholder="Travelers" required>
+  <textarea id="bplan" placeholder="Travel Plan"></textarea>
+
+  <button type="submit">Submit Request</button>
+</form>
+
+  </div>
+</div>
+
+
+<script>
+  if (!localStorage.getItem("loggedIn")) {
+    alert("Please login first 🔐");
+    window.location.href = "index.html";
+  }
+
+  function openModal(destination) {
+    document.getElementById("modal").classList.add("active");
+    document.getElementById("bdestination").value = destination;
+  }
+
+  function closeModal() {
+    document.getElementById("modal").classList.remove("active");
+  }
+
+  async function submitBooking(e) {
+    e.preventDefault();
+
+    const bookingData = {
+      name: document.getElementById("bname").value,
+      email: document.getElementById("bemail").value,
+      destination: document.getElementById("bdestination").value,
+      people: document.getElementById("bpeople").value,
+      plan: document.getElementById("bplan").value
+    };
+
+    const res = await fetch("http://localhost:5000/book", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bookingData)
+    });
+
+    if (res.ok) {
+      alert("Booking request sent successfully ✅");
+      closeModal();
+      e.target.reset();
+    } else {
+      alert("Booking failed ❌");
+    }
+  }
+</script>
+
+
+</body>
+</html>
